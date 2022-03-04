@@ -11,9 +11,7 @@
 
 ## Для кіберзахисників
 
-1. Програми знаходяться в [релізах](https://github.com/opengs/uashield/releases)
-2. Вибираємо [найновший реліз](https://github.com/opengs/uashield/releases/latest) і свою платформу
-3. Скачуємо і запускаємо
+1. Скачуємо і запускаємо
 
 **В користувачів на Linux можливо треба буде додати аргумент `--no-sandbox`. Windows повинен працювати без всяких додаткових речей**
 
@@ -30,7 +28,7 @@
 
 ## Збірка коду
 
-1. Клонуємо репозиторій: `git clone https://github.com/opengs/uashield.git`
+1. Клонуємо репозиторій: `git clone https://github.com/Luzhnuy/uashield`
 2. Встановлюємо залежності: `cd uashield && npm install`
 3. Запускаємо білд: `npm run build:electron`
 4. Запускаємо виконавчий файл в `./dist/electron` або електрон версію: `npm run start:electron`
@@ -40,10 +38,10 @@
 1. Збірка імежду: `docker build . -t uashield`
 2. Запуск: `docker run uashield 500 true` - де `500` - кількість потоків, і `true` | `false` чи ви бажаєте використати проксі
 
-Або за допомогою вже [зібраного імежду](https://github.com/opengs/uashield/pkgs/container/uashield):
+Або за допомогою вже [зібраного імежду](https://hub.docker.com/repository/docker/lvinni/uashield):
 
 ```bash
-docker run -d ghcr.io/opengs/uashield:0.0.x 512 true
+docker run -d lvinni/uashield 512 true
 ```
 
 ## Docker-compose версія
@@ -66,18 +64,3 @@ docker run -d ghcr.io/opengs/uashield:0.0.x 512 true
 ## Деплой на Play With Docker - безкоштовний інстанс на 4 години
 
 [![Try in PWD](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/opengs/uashield/0.0.x/pwd-docker-compose.yml)
-
-## Пожертвування
-Пожертвування будуть використовуватися виключно для цілей програми:
-1. Закупівля проксі серверів для атак
-2. В рідких випадках серверів для розміщення IT структури
-
-Коли ми виграємо війну і настане мирний час, гроші що остануться будуть передані на благодійність.
-
-Рахунки для переведення коштів:
-- BTC: 11wxDarouPfY6P3misLvFuJ8k8oWhd4qb
-
-І якшо ви хочете дати на каву для розробників, щоб вони могли прогулювати роботу і не спати ночами:
-- BTC: 12CcLYn6zrBcnmvK5fRSAQcJre5jknyTxH
-
-В майбутньому ми додамо їх ще більше :)

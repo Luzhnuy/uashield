@@ -1,8 +1,12 @@
 import axios from 'axios-https-proxy-fix'
-import {SiteData, ProxyData, Hosts, hostsUrl, TargetData} from './types'
+import {Hosts, hostsUrl, TargetData} from './types'
 
-export const getHosts = () => axios.get<Hosts[]>(hostsUrl)
-const hosts = getHosts();
-const target = axios.get<TargetData>(hosts[Math.floor(Math.random() * hosts.length)], { timeout: 10000 })
-export const getSites = () => target.site
-export const getProxies = () => target.proxy
+export const getSitesData = async () => {
+  const { data: hosts } = await axios.get<Hosts>(hostsUrl);
+  // const hosts = await axios.get<Hosts>(hostsUrl);
+
+  const { data: target } = await axios.get<TargetData>(hosts[Math.floor(Math.random() * hosts.length)], { timeout: 10000 })
+  // const target = await axios.get<TargetData>(hosts[Math.floor(Math.random() * hosts.length)], { timeout: 10000 })
+
+  return [target.proxy, target.site];
+}

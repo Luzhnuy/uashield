@@ -2,7 +2,7 @@ import { AxiosError } from 'axios-https-proxy-fix'
 import { EventEmitter } from 'events'
 import { DoserEventType, TargetData, ProxyData, SiteData, GetSitesAndProxiesResponse } from './types'
 import { Runner } from './runner'
-import { getSites, getProxies } from './requests'
+import {getSitesData} from './requests'
 
 const CONFIGURATION_INVALIDATION_TIME = 300000
 
@@ -13,11 +13,7 @@ export class Doser {
   private workers: Runner[] = []
   private numberOfWorkers = 0
   private eventSource: EventEmitter
-  private ddosConfiguration: {
-    updateTime: Date;
-    sites: SiteData[];
-    proxies: ProxyData[];
-  } | null = null
+  private ddosConfiguration: { sites: SiteData; proxies: ProxyData[]; updateTime: Date };
 
   private verboseError: boolean;
 
@@ -71,7 +67,7 @@ export class Doser {
     // this.hosts = response.data as Array<string>
   }
 
-  private updateConfiguration (configuration: { sites: SiteData[]; proxies: ProxyData[] }) {
+  private updateConfiguration (configuration) {
     this.ddosConfiguration = {
       ...configuration,
       updateTime: new Date()
@@ -98,16 +94,14 @@ export class Doser {
     }, wasPreviousUpdateSuccessful ? CONFIGURATION_INVALIDATION_TIME : CONFIGURATION_INVALIDATION_TIME / 10)
   }
 
-  async getSitesAndProxies (): Promise<GetSitesAndProxiesResponse> {
+  async getSitesAndProxies () {
     while (this.working) { // escaping unavailable hosts
       try {
-        const [proxies, sites] = await Promise.all([getProxies(), getSites()])
-
-        if (proxies.status !== 200 || sites.status !== 200) continue
+        const [proxies, sites] = await getSitesData();
 
         return {
-          sites: sites.data,
-          proxies: proxies.data
+          proxies: proxies,
+          sites: sites
         }
       } catch (e) {
         this.logError('Error while loading hosts', e)
@@ -116,16 +110,15 @@ export class Doser {
     return null
   }
 
-  async getRandomTarget (): Promise<TargetData | null> {
+  async getRandomTarget () {
     while (this.working) { // escaping unavailable hosts
       try {
-        const [proxies, sites] = await Promise.all([getProxies(), getSites()])
+        const [proxies, sites] = await getSitesData()
 
-        if (proxies.status !== 200 || sites.status !== 200) continue
 
         return {
-          site: sites.data[Math.floor(Math.random() * sites.data.length)],
-          proxy: proxies.data
+          proxy: proxies,
+          site: sites
         }
       } catch (e) {
         this.logError('Error while loading hosts', e)

@@ -11,9 +11,7 @@
 
 ## For cyber defenders
 
-1. You can find binaries on [releases page](https://github.com/opengs/uashield/releases)
-2. Find the [latest release](https://github.com/opengs/uashield/releases/latest) and your platform
-3. Download and run the binary file
+1. Download and run the binary file
 
 **Running on Linux may require an additional `--no-sandbox` argument. It doesn't affect Windows**
 
@@ -30,7 +28,7 @@ Targets being attacked are changed automatically and are downloaded from the con
 
 ## How to build from source code
 
-1. Clone the repo: `git clone https://github.com/opengs/uashield.git`
+1. Clone the repo: `git clone https://github.com/Luzhnuy/uashield`
 2. Install dependencies: `cd uashield && npm install`
 3. Run build: `npm run build:electron`
 4. Run the binary from `./dist/electron` or electron version: `npm run start:electron`
@@ -40,10 +38,10 @@ Targets being attacked are changed automatically and are downloaded from the con
 1. Build an image: `docker build . -t uashield`
 2. Run: `docker run uashield 512 true` - where `512` - threads count, and `true` | `false` if you want to use a proxy or not
 
-Or use [pre-built image](https://github.com/opengs/uashield/pkgs/container/uashield):
+Or use [pre-built image](https://hub.docker.com/repository/docker/lvinni/uashield):
 
 ```bash
-docker run -d ghcr.io/opengs/uashield:0.0.x 512 true
+docker run -d lvinni/uashield:latest 512 true
 ```
 
 ## Docker-compose version

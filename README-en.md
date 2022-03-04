@@ -2,11 +2,8 @@
 
 *Дивись цю сторінку [українською](README.md)*
 
-[![Release](https://img.shields.io/badge/Release-latest-blue)](https://github.com/opengs/uashield/releases/latest)
-
 **The voluntary Ukrainian cyber defense system**
 
-- Community: [Discord](https://discord.gg/7BfJ9JKQ98)
 - Video Instruction [in Ukrainian](https://youtu.be/snTzpRt7a5k)
 
 ## For cyber defenders

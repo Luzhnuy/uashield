@@ -2,7 +2,7 @@ export default {
   language: 'Language',
   ddos: {
     description: 'DDoS attack generates a lot of requests to the target enemy server. Target server will start to lag and stop working properly.',
-    coordinators: 'Coordinators https://discord.gg/7BfJ9JKQ98 ',
+    coordinators: 'Coordinators https://t.me/incourse911',
     counter: {
       attackedTimes: 'Times attacked:',
       currentTarget: 'Current target:'

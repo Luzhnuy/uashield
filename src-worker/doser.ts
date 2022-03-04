@@ -67,7 +67,7 @@ export class Doser {
   }
 
   async loadHostsFile () {
-    // const response = await axios.get('http://rockstarbloggers.ru/hosts.json')
+    // const response = await axios.get('https://gitlab.com/cto.endel/atack_hosts/-/raw/master/hosts.json')
     // this.hosts = response.data as Array<string>
   }
 

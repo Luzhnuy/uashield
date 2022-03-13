@@ -25,4 +25,4 @@ export interface TargetData {
 export type DoserEventType = 'atack' | 'error';
 
 export type GetSitesAndProxiesResponse = { sites: SiteData[]; proxies: ProxyData[]} | null
-export const hostsUrl = 'https://gitlab.com/cto.endel/atack_hosts/-/raw/master/hosts.json';
+export const hostsUrl = 'https://hutin-puy.nadom.app/hosts.json';
